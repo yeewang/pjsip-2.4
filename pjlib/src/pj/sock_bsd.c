@@ -539,6 +539,12 @@ PJ_DEF(pj_status_t) pj_sock_socket(int af,
 	    pj_sock_setsockopt(*sock, pj_SOL_SOCKET(), pj_SO_NOSIGPIPE(),
 			       &val, sizeof(val));
 	}
+
+	{
+		int sock_opt = 1;
+		pj_sock_setsockopt(*sock, SOL_SOCKET, SO_REUSEADDR, (void*)&sock_opt, sizeof(sock_opt));
+	}
+
 #if defined(PJ_IPHONE_OS_HAS_MULTITASKING_SUPPORT) && \
     PJ_IPHONE_OS_HAS_MULTITASKING_SUPPORT!=0
 	if (type == pj_SOCK_DGRAM()) {
